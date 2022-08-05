@@ -50,10 +50,11 @@ func InitProvider(host string, opt libs.Options) (Runner, error) {
 }
 
 func (r *Runner) Start() error {
-	r.Action(connect)
-	r.Action(run)
-
-	return nil
+	err := r.Action(connect)
+	if err == nil {
+		err = r.Action(run)
+	}
+	return err
 }
 
 const (
